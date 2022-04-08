@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 /* eslint-disable react/react-in-jsx-scope */

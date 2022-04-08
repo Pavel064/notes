@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
+
 function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) {
   const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 
