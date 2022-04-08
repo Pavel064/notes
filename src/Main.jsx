@@ -78,10 +78,10 @@ function Main({ activeNote, onUpdateNote }) {
           onChange={handleBody}
         />
       </div>
-      <div className="app-main-note-preview">
+      {/* <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">{activeNote.body}</ReactMarkdown>
-      </div>
+        <ReactMarkdown className="markdown-preview">{body}</ReactMarkdown>
+      </div> */}
     </div>
   );
 }
