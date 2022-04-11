@@ -17,6 +17,11 @@ body,
   background: url(https://www.toptal.com/designers/subtlepatterns/patterns/lightpaperfibers.png);
 }
 
+.quill {
+  height: 375px;
+
+}
+
 button {
   background: none;
   border: 0;

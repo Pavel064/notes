@@ -26,7 +26,13 @@ function Main({ activeNote, onUpdateNote }) {
           onChange={(e) => onEditField('title', e.target.value)}
           autoFocus
         />
-        <ReactQuill theme="snow" value={value} onChange={setValue} />
+        <ReactQuill
+          className="quill"
+          placeholder="Write your note here..."
+          theme="snow"
+          value={value}
+          onChange={setValue}
+        />
         {/* <ReactQuill
           theme="snow"
           value={activeNote.body}
@@ -39,10 +45,10 @@ function Main({ activeNote, onUpdateNote }) {
           onChange={(e) => onEditField('body', e.target.value)}
         /> */}
       </div>
-      <div className="app-main-note-preview">
+      {/* <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
         <ReactMarkdown className="markdown-preview">{activeNote.body}</ReactMarkdown>
-      </div>
+      </div> */}
     </div>
   );
 }
