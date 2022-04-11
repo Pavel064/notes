@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 /* eslint-disable react/react-in-jsx-scope */
 function Main({ activeNote, onUpdateNote }) {
+  const [value, setValue] = useState('');
   const onEditField = (key, value) => {
     onUpdateNote({
       ...activeNote,
@@ -23,12 +26,18 @@ function Main({ activeNote, onUpdateNote }) {
           onChange={(e) => onEditField('title', e.target.value)}
           autoFocus
         />
-        <textarea
+        <ReactQuill theme="snow" value={value} onChange={setValue} />
+        {/* <ReactQuill
+          theme="snow"
+          value={activeNote.body}
+          onChange={(e) => onEditField('body', e.target.value)}
+        /> */}
+        {/* <textarea
           id="body"
           placeholder="Write your note here..."
           value={activeNote.body}
           onChange={(e) => onEditField('body', e.target.value)}
-        />
+        /> */}
       </div>
       <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
