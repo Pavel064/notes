@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 /* eslint-disable react/react-in-jsx-scope */
 function Main({ activeNote, onUpdateNote }) {
   const [value, setValue] = useState('');
+  useEffect(() => {
+    if (value) {
+      onEditField('body', value);
+    }
+  }, [value]);
+
   const onEditField = (key, value) => {
     onUpdateNote({
       ...activeNote,
