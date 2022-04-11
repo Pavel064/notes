@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -45,10 +44,6 @@ function Main({ activeNote, onUpdateNote }) {
           onChange={(e) => onEditField('body', e.target.value)}
         /> */}
       </div>
-      {/* <div className="app-main-note-preview">
-        <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">{activeNote.body}</ReactMarkdown>
-      </div> */}
     </div>
   );
 }
