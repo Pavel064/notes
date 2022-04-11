@@ -3,23 +3,24 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 /* eslint-disable react/react-in-jsx-scope */
-function Main({ activeNote, onUpdateNote }) {
+const Main = ({ activeNote, onUpdateNote }) => {
   const [value, setValue] = useState('');
+
   useEffect(() => {
     if (value) {
       onEditField('body', value);
     }
   }, [value]);
 
-  const onEditField = (key, value) => {
+  const onEditField = (field, value) => {
     onUpdateNote({
       ...activeNote,
-      [key]: value,
+      [field]: value,
       lastModified: Date.now(),
     });
   };
 
-  if (!activeNote) return <div className="no-active-note">No note selected</div>;
+  if (!activeNote) return <div className="no-active-note">No Active Note</div>;
 
   return (
     <div className="app-main">
@@ -27,6 +28,7 @@ function Main({ activeNote, onUpdateNote }) {
         <input
           type="text"
           id="title"
+          placeholder="Note Title"
           value={activeNote.title}
           onChange={(e) => onEditField('title', e.target.value)}
           autoFocus
@@ -38,20 +40,8 @@ function Main({ activeNote, onUpdateNote }) {
           value={value}
           onChange={setValue}
         />
-        {/* <ReactQuill
-          theme="snow"
-          value={activeNote.body}
-          onChange={(e) => onEditField('body', e.target.value)}
-        /> */}
-        {/* <textarea
-          id="body"
-          placeholder="Write your note here..."
-          value={activeNote.body}
-          onChange={(e) => onEditField('body', e.target.value)}
-        /> */}
       </div>
     </div>
   );
-}
-
+};
 export default Main;

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from 'react';
 
-function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) {
+const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) => {
   const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 
   return (
@@ -11,21 +11,21 @@ function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
         <button onClick={onAddNote}>Add</button>
       </div>
       <div className="app-sidebar-notes">
-        {sortedNotes.map((note) => (
+        {sortedNotes.map(({ id, title, body, lastModified }, i) => (
           <div
-            className={`app-sidebar-note ${note.id === activeNote && 'active'}`}
-            onClick={() => setActiveNote(note.id)}
+            className={`app-sidebar-note ${id === activeNote && 'active'}`}
+            key={i}
+            onClick={() => setActiveNote(id)}
           >
             <div className="sidebar-note-title">
-              <strong>{note.title}</strong>
-              <button onClick={() => onDeleteNote(note.id)}>Delete</button>
+              <strong>{title}</strong>
+              <button onClick={(e) => onDeleteNote(id)}>Delete</button>
             </div>
 
-            <p>{note.body && note.body.substr(0, 100) + '...'}</p>
-
+            <p>{body && body.substr(0, 100) + '...'}</p>
             <small className="note-meta">
               Last modified{' '}
-              {new Date(note.lastModified).toLocaleDateString('ru-RU', {
+              {new Date(lastModified).toLocaleDateString('ru-RU', {
                 hour: '2-digit',
                 minute: '2-digit',
               })}
@@ -35,6 +35,6 @@ function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
       </div>
     </div>
   );
-}
+};
 
 export default Sidebar;
