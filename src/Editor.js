@@ -29,7 +29,13 @@ const EDITTOR_HOLDER_ID = 'editorjs';
 
 const Editor = () => {
   const ejInstance = useRef();
-  const [editorData, setEditorData] = useState(DEFAULT_INITIAL_DATA);
+  const [editorData, setEditorData] = useState(
+    JSON.parse(localStorage.blocks) || DEFAULT_INITIAL_DATA
+  );
+
+  useEffect(() => {
+    localStorage.setItem('blocks', JSON.stringify(editorData));
+  }, [editorData]);
 
   // This will run only once
   useEffect(() => {
@@ -55,6 +61,7 @@ const Editor = () => {
         // Put your logic here to save this data to your DB
         setEditorData(content);
         console.log(content);
+        console.log(editorData);
         // console.log(activeNote);
       },
       autofocus: true,

@@ -2,7 +2,7 @@
 import React from 'react';
 
 const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) => {
-  const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
+  // const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 
   return (
     <div className="app-sidebar">
@@ -11,7 +11,9 @@ const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
         <button onClick={onAddNote}>Add</button>
       </div>
       <div className="app-sidebar-notes">
-        {sortedNotes.map(({ id, title, body, lastModified }, i) => (
+        {/* lastModified is always first
+        {sortedNotes.map(({ id, title, body, lastModified }, i) => ( */}
+        {notes.map(({ id, title, body, lastModified }, i) => (
           // create a dynamic className
           <div
             className={`app-sidebar-note ${id === activeNote && 'active'}`}
