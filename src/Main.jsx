@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import ReactQuill from 'react-quill';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
+import { createReactEditorJS } from 'react-editor-js';
+import { EDITOR_JS_TOOLS } from './tools';
 
-/* eslint-disable react/react-in-jsx-scope */
 const Main = ({ activeNote, onUpdateNote }) => {
   const [value, setValue] = useState('');
 
@@ -20,6 +20,23 @@ const Main = ({ activeNote, onUpdateNote }) => {
     });
   };
 
+  const ReactEditorJS = createReactEditorJS();
+  const editorCore = useRef(null);
+
+  const handleInitialize = useCallback((instance) => {
+    editorCore.current = instance;
+  }, []);
+
+  useEffect(() => {
+    if (editorCore.current) {
+      editorCore.current.render(activeNote.body);
+    }
+  }, [activeNote]);
+
+  const handleSave = useCallback(async () => {
+    const savedData = await editorCore.current.save();
+    setValue(savedData);
+  }, []);
   if (!activeNote) return <div className="no-active-note">No Active Note</div>;
 
   return (
@@ -33,13 +50,19 @@ const Main = ({ activeNote, onUpdateNote }) => {
           onChange={(e) => onEditField('title', e.target.value)}
           autoFocus
         />
-        <ReactQuill
+        <ReactEditorJS
+          onInitialize={handleInitialize}
+          defaultValue={activeNote.body.blocks}
+          tools={EDITOR_JS_TOOLS}
+        />
+        <button onClick={handleSave}>Save</button>
+        {/* <ReactQuill
           className="quill"
           placeholder="Write your note here..."
           theme="snow"
           value={value}
           onChange={setValue}
-        />
+        /> */}
       </div>
     </div>
   );
