@@ -12,6 +12,7 @@ const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
       </div>
       <div className="app-sidebar-notes">
         {sortedNotes.map(({ id, title, body, lastModified }, i) => (
+          // create a dynamic className
           <div
             className={`app-sidebar-note ${id === activeNote && 'active'}`}
             key={i}
@@ -19,7 +20,7 @@ const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
           >
             <div className="sidebar-note-title">
               <strong>{title}</strong>
-              <button onClick={(e) => onDeleteNote(id)}>Delete</button>
+              <button onClick={() => onDeleteNote(id)}>Delete</button>
             </div>
             <p>{body && body.substr(0, 15) + '...'}</p>
             <small className="note-meta">

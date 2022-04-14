@@ -5,15 +5,17 @@ import Sidebar from './Sidebar';
 import './App.css';
 
 function App() {
+  // initial notes array
   const [notes, setNotes] = useState(
     localStorage.notes ? JSON.parse(localStorage.notes) : []
   );
+  // create an activeNote state
   const [activeNote, setActiveNote] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
-
+  // add note function
   const onAddNote = () => {
     const newNote = {
       id: uuid(),
@@ -25,7 +27,7 @@ function App() {
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
-
+  // note delete function
   const onDeleteNote = (noteId) => {
     setNotes(notes.filter(({ id }) => id !== noteId));
   };

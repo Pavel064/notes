@@ -18,7 +18,7 @@ const Main = ({ activeNote, onUpdateNote }) => {
       <div className="app-main-note-edit">
         <React.Fragment>
           <Container
-            style={{ backgroundColor: '#d4ecff', minHeight: '100vh' }}
+            style={{ backgroundColor: '#dfffdf', minHeight: '100vh' }}
             maxWidth="xl"
           >
             <Box p={5}>

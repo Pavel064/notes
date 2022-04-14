@@ -1,4 +1,4 @@
-import { default as React, useEffect, useRef } from 'react';
+import { default as React, useEffect, useRef, useState } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import Embed from '@editorjs/embed';
@@ -25,12 +25,11 @@ const DEFAULT_INITIAL_DATA = () => {
     ],
   };
 };
-
 const EDITTOR_HOLDER_ID = 'editorjs';
 
-const Editor = (props) => {
+const Editor = () => {
   const ejInstance = useRef();
-  const [editorData, setEditorData] = React.useState(DEFAULT_INITIAL_DATA);
+  const [editorData, setEditorData] = useState(DEFAULT_INITIAL_DATA);
 
   // This will run only once
   useEffect(() => {
@@ -55,6 +54,8 @@ const Editor = (props) => {
         let content = await editor.saver.save();
         // Put your logic here to save this data to your DB
         setEditorData(content);
+        console.log(content);
+        // console.log(activeNote);
       },
       autofocus: true,
       tools: {
@@ -74,7 +75,7 @@ const Editor = (props) => {
 
   return (
     <React.Fragment>
-      <div id={EDITTOR_HOLDER_ID}> </div>
+      <div id={EDITTOR_HOLDER_ID}></div>
     </React.Fragment>
   );
 };
