@@ -31,7 +31,7 @@ function App() {
   const onDeleteNote = (noteId) => {
     setNotes(notes.filter(({ id }) => id !== noteId));
   };
-
+  // called if there is a change in the body field
   const onUpdateNote = (updatedNote) => {
     const updatedNotesArray = notes.map((note) => {
       if (note.id === updatedNote.id) {

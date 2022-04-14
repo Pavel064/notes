@@ -61,8 +61,6 @@ const Editor = () => {
         // Put your logic here to save this data to your DB
         setEditorData(content);
         console.log(content);
-        console.log(editorData);
-        // console.log(activeNote);
       },
       autofocus: true,
       tools: {
