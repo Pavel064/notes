@@ -40,7 +40,11 @@ const Main = ({ activeNote, onUpdateNote }) => {
                   border: '1px solid #cccccc',
                 }}
               >
-                <Editor />
+                <Editor
+                  id={activeNote.id}
+                  value={activeNote.body}
+                  onChange={(body) => onEditField('body', body)}
+                />
               </Box>
             </Box>
           </Container>
