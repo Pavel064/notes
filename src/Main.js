@@ -9,6 +9,7 @@ const Main = ({ activeNote, onUpdateNote }) => {
       [field]: value,
       lastModified: Date.now(),
     });
+    console.log(activeNote);
   };
 
   if (!activeNote) return <div className="no-active-note">No Active Note</div>;
