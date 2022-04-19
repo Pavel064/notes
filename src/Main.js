@@ -2,17 +2,19 @@ import React from 'react';
 import { Container, Box } from '@material-ui/core';
 import Editor from './Editor';
 
-const Main = ({ activeNote, onUpdateNote }) => {
+const Main = ({ activeNoteObj, onUpdateNote }) => {
   const onEditField = (field, value) => {
+    console.log('editor', activeNoteObj);
     onUpdateNote({
-      ...activeNote,
+      ...activeNoteObj,
       [field]: value,
       lastModified: Date.now(),
     });
-    console.log(activeNote);
+    console.log(activeNoteObj.title);
+    console.log(field, value);
   };
 
-  if (!activeNote) return <div className="no-active-note">No Active Note</div>;
+  if (!activeNoteObj) return <div className="no-active-note">No Active Note</div>;
 
   return (
     <div className="app-main">
@@ -28,7 +30,7 @@ const Main = ({ activeNote, onUpdateNote }) => {
                   type="text"
                   id="title"
                   placeholder="Note Title"
-                  value={activeNote.title}
+                  value={activeNoteObj.title}
                   onChange={(e) => onEditField('title', e.target.value)}
                   autoFocus
                 />
@@ -41,8 +43,8 @@ const Main = ({ activeNote, onUpdateNote }) => {
                 }}
               >
                 <Editor
-                  id={activeNote.id}
-                  value={activeNote.body}
+                  id={activeNoteObj.id}
+                  value={activeNoteObj.body}
                   onChange={(body) => onEditField('body', body)}
                 />
               </Box>
