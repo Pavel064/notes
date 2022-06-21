@@ -1,15 +1,8 @@
-/* eslint-disable react/jsx-key */
 import React from 'react';
 
-const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) => {
-  const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
-
-  function stripHtml(html) {
-    let tmp = document.createElement('DIV');
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
-  }
-
+const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNoteId, setActiveNoteId }) => {
+  // const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
+  wwwwww;
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -17,17 +10,20 @@ const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
         <button onClick={onAddNote}>Add</button>
       </div>
       <div className="app-sidebar-notes">
-        {sortedNotes.map(({ id, title, body, lastModified }, i) => (
+        {/* lastModified is always first
+        {sortedNotes.map(({ id, title, body, lastModified }, i) => ( */}
+        {notes.map(({ id, title, body, lastModified }, i) => (
+          // create a dynamic className
           <div
-            className={`app-sidebar-note ${id === activeNote && 'active'}`}
+            className={`app-sidebar-note ${id === activeNoteId && 'active'}`}
             key={i}
-            onClick={() => setActiveNote(id)}
+            onClick={() => setActiveNoteId(id)}
           >
             <div className="sidebar-note-title">
               <strong>{title}</strong>
-              <button onClick={(e) => onDeleteNote(id)}>Delete</button>
+              <button onClick={() => onDeleteNote(id)}>Delete</button>
             </div>
-            <p>{body && stripHtml(body).substr(0, 15) + '...'}</p>
+            {/* <p>{body[0] && body[0].substr(0, 15) + '...'}</p> */}
             <small className="note-meta">
               Last modified{' '}
               {new Date(lastModified).toLocaleDateString('ru-RU', {

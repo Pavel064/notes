@@ -1,41 +1,53 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
+import React, { useEffect, useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 /* eslint-disable react/react-in-jsx-scope */
-function Main({ activeNote, onUpdateNote }) {
-  const onEditField = (key, value) => {
+const Main = ({ activeNote, onUpdateNote }) => {
+  const [value, setValue] = useState('');
+  const [title, setTitle] = useState('');
+
+  // useEffect(() => {
+  //   if (value) {
+  //     onEditField('body', value);
+  //   }
+  // }, [value]);
+
+  useEffect(() => {
+    setValue(activeNote.body);
+    setTitle(activeNote.title);
+  }, [activeNote]);
+
+  const onEditField = (field, value) => {
     onUpdateNote({
       ...activeNote,
-      [key]: value,
+      [field]: value,
       lastModified: Date.now(),
     });
   };
 
-  if (!activeNote) return <div className="no-active-note">No note selected</div>;
+  if (!activeNote) return <div className="no-active-note">No Active Note</div>;
 
   return (
-    <div className="app-main">
+    <div className="app-mainddd">
       <div className="app-main-note-edit">
         <input
           type="text"
           id="title"
-          value={activeNote.title}
+          placeholder="Note Title"
+          value={title}
           onChange={(e) => onEditField('title', e.target.value)}
           autoFocus
         />
-        <textarea
-          id="body"
+        <ReactQuill
+          className="quill"
           placeholder="Write your note here..."
-          value={activeNote.body}
-          onChange={(e) => onEditField('body', e.target.value)}
+          theme="snow"
+          value={value}
+          onChange={setValue}
         />
-      </div>
-      <div className="app-main-note-preview">
-        <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">{activeNote.body}</ReactMarkdown>
       </div>
     </div>
   );
-}
-
+};
 export default Main;

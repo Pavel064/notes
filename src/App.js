@@ -5,7 +5,9 @@ import Sidebar from './Sidebar';
 import './App.css';
 
 function App() {
-  const [notes, setNotes] = useState(JSON.parse(localStorage.notes) || []);
+  const [notes, setNotes] = useState(
+    localStorage.notes ? JSON.parse(localStorage.notes) : []
+  );
   const [activeNote, setActiveNote] = useState(false);
 
   useEffect(() => {
@@ -19,13 +21,17 @@ function App() {
       body: '',
       lastModified: Date.now(),
     };
-
     setNotes([newNote, ...notes]);
+    setActiveNote(newNote.id);
+  };
+
+  const onDeleteNote = (noteId) => {
+    setNotes(notes.filter(({ id }) => id !== noteId));
   };
 
   const onUpdateNote = (updatedNote) => {
     const updatedNotesArray = notes.map((note) => {
-      if (note.id === activeNote) {
+      if (note.id === updatedNote.id) {
         return updatedNote;
       }
 
@@ -35,12 +41,8 @@ function App() {
     setNotes(updatedNotesArray);
   };
 
-  const onDeleteNote = (idToDelete) => {
-    setNotes(notes.filter((note) => note.id !== idToDelete));
-  };
-
   const getActiveNote = () => {
-    return notes.find((note) => note.id === activeNote);
+    return notes.find(({ id }) => id === activeNote);
   };
 
   return (
@@ -52,7 +54,7 @@ function App() {
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      <Main activeNote={getActiveNote} onUpdateNote={onUpdateNote} />
     </div>
   );
 }
