@@ -21,7 +21,6 @@ function App() {
       body: '',
       lastModified: Date.now(),
     };
-
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
@@ -43,7 +42,7 @@ function App() {
   };
 
   const getActiveNote = () => {
-    return notes.find((note) => note.id === activeNote);
+    return notes.find(({ id }) => id === activeNote);
   };
 
   return (
@@ -55,7 +54,7 @@ function App() {
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      <Main activeNote={getActiveNote} onUpdateNote={onUpdateNote} />
     </div>
   );
 }

@@ -5,12 +5,18 @@ import 'react-quill/dist/quill.snow.css';
 /* eslint-disable react/react-in-jsx-scope */
 const Main = ({ activeNote, onUpdateNote }) => {
   const [value, setValue] = useState('');
+  const [title, setTitle] = useState('');
+
+  // useEffect(() => {
+  //   if (value) {
+  //     onEditField('body', value);
+  //   }
+  // }, [value]);
 
   useEffect(() => {
-    if (value) {
-      onEditField('body', value);
-    }
-  }, [value]);
+    setValue(activeNote.body);
+    setTitle(activeNote.title);
+  }, [activeNote]);
 
   const onEditField = (field, value) => {
     onUpdateNote({
@@ -23,13 +29,13 @@ const Main = ({ activeNote, onUpdateNote }) => {
   if (!activeNote) return <div className="no-active-note">No Active Note</div>;
 
   return (
-    <div className="app-main">
+    <div className="app-mainddd">
       <div className="app-main-note-edit">
         <input
           type="text"
           id="title"
           placeholder="Note Title"
-          value={activeNote.title}
+          value={title}
           onChange={(e) => onEditField('title', e.target.value)}
           autoFocus
         />

@@ -4,6 +4,12 @@ import React from 'react';
 const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) => {
   const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 
+  function stripHtml(html) {
+    let tmp = document.createElement('DIV');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -21,8 +27,7 @@ const Sidebar = ({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
               <strong>{title}</strong>
               <button onClick={(e) => onDeleteNote(id)}>Delete</button>
             </div>
-
-            <p>{body && body.substr(0, 100) + '...'}</p>
+            <p>{body && stripHtml(body).substr(0, 15) + '...'}</p>
             <small className="note-meta">
               Last modified{' '}
               {new Date(lastModified).toLocaleDateString('ru-RU', {
